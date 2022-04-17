@@ -12,10 +12,47 @@
 <body>
     <header>
         <nav>
-            
+            <a href="/Trash">Papelera</a>
+            <a href="/Dashboard">Panel de Tareas</a>
+            <a href="/Home">Inicio</a>
         </nav>
     </header>
     <main>
+        <div class="root-container" id="Root">
+            <div class="modal">
+
+            </div>
+            <!--Dashboard -->
+            <div class="task-filter">
+                <span class="filter-block">
+                    <input type="checkbox" id="filtro1">
+                    <label for="filtro1">Filtro 1</label>
+                </span>
+                <span class="filter-block">
+                    <input type="checkbox" id="filtro2">
+                    <label for="filtro2">Filtro 2</label>
+                </span>
+            </div>
+            <div class="wrapper task">
+                <a class="task-card">
+                    <h3>Nombre de la tarea 1</h3>
+                    <p>Descripcion de la tarea 1</p>
+                    <span>
+                        <p>Fecha de creacion de tarea 1</p>
+                        <p>Fecha limite pa la tarea 1</p>
+                    </span>
+                </a>
+                <a class="task-card">
+                    <h3>Nombre de la tarea 2</h3>
+                    <p>Descripcion de la tarea 2</p>
+                    <span>
+                        <p>Fecha de creacion de tarea 2</p>
+                        <p>Fecha limite pa la tarea 2</p>
+                    </span>
+                </a>
+            </div>
+            <!--Dashboard -->
+        </div>
     </main>
     <footer></footer>
 </body>
