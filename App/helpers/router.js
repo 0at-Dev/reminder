@@ -1,29 +1,31 @@
+import { home } from "../components/home.js"
+
+
 const _routes={
-    Home:{
-        path:"/Home",
+    "Home":{
+        hash:"",
         title:"Home",
-        state:1
+        success:()=>home()
     },
-    Dashboard:{
-        path:"/Dashboard",
+    "Dashboard":{
+        hash:"#/Dashboard",
         title:"Dashboard",
-        state:2
+        success:()=>console.log('Hey, this is the Dashboard ')
     },
-    Trash:{
-        path:"/Trash",
+    "Trash":{
+        hash:"#/Trash",
         title:"Trash",
-        state:4
+        success:()=>console.log('Hey, this is the Trash')
     },
-    New:{
-        path:"/New",
+    "New":{
+        hash:"#/New",
         title:"New",
-        state:3
+        success:()=>console.log('Hey, this is the New method')
     }
 }
 
-export const router=(hash)=>{
-    let path= hash.split('#/')[1]
-        console.log(path)
-    let _route=_routes[path]
-        window.history.pushState(_route.state,_route.title,_route.path)
+export const router=()=>{
+let {hash}=location
+        let _route= Object.values(_routes).find(route=> route.hash === hash)
+            _route.success(hash)
 }
