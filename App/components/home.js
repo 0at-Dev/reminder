@@ -24,14 +24,13 @@ const template=()=>{
         $main.appendChild($nextTaskContainer)
         return $main
 }
-const filter=()=>{
-    let _date= new Date
-        let _day= _date.getDay()
-        let _month= _date.getMonth()
-        let _year= _date.getFullYear()
-        let _fullDate= `${_day}/${_month}/${_year}`
-            console.log(_fullDate)
-
+const filter=(limit,length)=>{
+    let $tasks= document.querySelectorAll('a.task-card')
+        if($tasks.length>0){
+            console.log($tasks)
+            console.log(limit)
+            console.log(length)
+        }
 }
 export const home=async()=>{
 
@@ -46,10 +45,23 @@ export const home=async()=>{
             let _tasks=response
             let $wrapper=document.querySelector('.wrapper.task')
                 if(_tasks !==undefined){
-                    _tasks.map(task=>{
+                    let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
+                    let _sortByDeadline=_tasks.sort((a,b)=>{
+                            return new Date(b.Deadline) - new Date(a.Deadline)
+                    })
+
+                    _sortByDeadline.map(task=>{
                         $wrapper.appendChild(card(task))
                     })
-                    filter()
+
+                    $tasksLimiter.value=1
+                    $tasksLimiter.min=1
+                    $tasksLimiter.max=_tasks.length
+
+                    $tasksLimiter.addEventListener('change',(event)=>{
+                        // console.log(event.currentTarget.value)
+                        filter(event.target.value,_tasks.length)
+                   }) 
                 }
             }
         })
