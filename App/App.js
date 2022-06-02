@@ -1,7 +1,8 @@
-import { router } from "./helpers/router.js";
+import { session } from "./helpers/session.js"
 
-document.addEventListener('DOMContentLoaded',()=>router())
-window.addEventListener('hashchange',()=>router())
+document.addEventListener('DOMContentLoaded',()=>session())
+// document.addEventListener('DOMContentLoaded',()=>router())
+// window.addEventListener('hashchange',()=>router())
    
 
 

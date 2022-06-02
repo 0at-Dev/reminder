@@ -1,8 +1,10 @@
 import api from '../helpers/api.js'
 import get  from '../helpers/query.js'
+import storage from '../helpers/storage.js'
 import { card } from './dashboard.js'
+import { navegator } from './navegator.js'
 
-const template=()=>{
+const $template=()=>{
     let $main=document.createElement('div')
         $main.className='page-wrapper'
         let $filterContainer= document.createElement('div')
@@ -27,46 +29,35 @@ const template=()=>{
 const filter=(limit,length)=>{
     let $tasks= document.querySelectorAll('a.task-card')
         if($tasks.length>0){
-            console.log($tasks)
-            console.log(limit)
-            console.log(length)
+            for (let index = limit - 1; index < $tasks.length; index++) {
+                $tasks[index].remove()
+            }
+            
         }
 }
-export const home=async()=>{
 
-    let $Root= document.getElementById('Root')
-    let $html=template()
-        $Root.innerHTML=''
-        $Root.appendChild($html)
+    export const home=async(key)=>{
+        let _session=storage.get(key)
+        let $Root= document.getElementById('Root')
+        let $html=$template()
+            $Root.innerHTML=''
+            
+        let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
 
-        await get({
-            url:api.task,
-            success:response=>{
-            let _tasks=response
-            let $wrapper=document.querySelector('.wrapper.task')
-                if(_tasks !==undefined){
-                    let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
-                    let _sortByDeadline=_tasks.sort((a,b)=>{
-                            return new Date(b.Deadline) - new Date(a.Deadline)
-                    })
-
-                    _sortByDeadline.map(task=>{
-                        $wrapper.appendChild(card(task))
-                    })
-
-                    $tasksLimiter.value=1
-                    $tasksLimiter.min=1
-                    $tasksLimiter.max=_tasks.length
-
-                    $tasksLimiter.addEventListener('change',(event)=>{
-                        // console.log(event.currentTarget.value)
-                        filter(event.target.value,_tasks.length)
-                   }) 
-                }
+            if(_session===null){
+                $Root.innerHTML='No hay tareas'
+                
             }
-        })
+            if(_session!==null){
+                $Root.appendChild($html)
+            }
+            
+            document.body.querySelector('header').appendChild(navegator())
 
-    
+            // Events
+            //     $tasksLimiter.addEventListener('change',(event)=>{
 
-
-}
+            //         console.log(event.currentTarget.value)
+            //         filter(event.target.value,_tasks.length)
+            // }) 
+    }
