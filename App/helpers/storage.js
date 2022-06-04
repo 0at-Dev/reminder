@@ -5,15 +5,28 @@ export const get=(key)=>{
     return response
 }
 export const set=(setup)=>{
-    let {session}= setup    
-    let _validate= localStorage.getItem(session)
-        console.log(_validate)
-        // if(_validate !==undefined){
-        //     localStorage.setItem(id,JSON.stringify(data))
-        // }
-        // if(_validate ===undefined){
-        //     console.log(`${id} data already exist`)
-        // }
+    let {key,data}= setup    
+    
+
+    let _validate= localStorage.getItem(key)
+    let _response= _validate===null?null:JSON.parse(_validate)
+    
+
+        if( _response !==null){
+            if(_response.tasks){
+                let _update=_response.tasks
+                    _update.push(data)
+                    localStorage.setItem(key,JSON.stringify({tasks:_update}))
+            }
+            if(!_response.tasks){
+                localStorage.setItem(key,JSON.stringify({tasks:[data]}))
+            }
+        }
+        if( _response===null){
+
+            localStorage.setItem(key,JSON.stringify({tasks:[data]}))
+
+        }
 }
 export const session=(key)=>{
     let _validate= sessionStorage.getItem(key)

@@ -1,7 +1,9 @@
 import api from '../helpers/api.js'
 import get  from '../helpers/query.js'
 import storage from '../helpers/storage.js'
-import { card } from './dashboard.js'
+import dashboard from './dashboard.js'
+
+import editor from './editor.js'
 import { navegator } from './navegator.js'
 
 const $template=()=>{
@@ -42,17 +44,44 @@ const filter=(limit,length)=>{
         let $html=$template()
             $Root.innerHTML=''
             
-        let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
+        // let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
 
             if(_session===null){
-                $Root.innerHTML='No hay tareas'
+                let $editor=editor.template()
+                    $Root.appendChild($editor)
+
                 
+
+                    // Events
+                    editor.listen(key)
             }
+
+
             if(_session!==null){
-                $Root.appendChild($html)
+
+                console.log(_session)
+
+                let $editor=editor.template()
+                let $dashboard=dashboard.template()
+                let $cards=dashboard.build(key)
+                    
+                    $cards.map(card=>$dashboard.appendChild(card))
+
+                $Root.appendChild($editor)
+                $Root.appendChild($dashboard)
+
+            
+                // Events
+                editor.listen(key)
+                dashboard.listen()
+                // alert(`Bienvenido,${_session}`)
+                // $Root.appendChild($html)
+
             }
             
-            document.body.querySelector('header').appendChild(navegator())
+
+
+            // document.body.querySelector('header').appendChild(navegator())
 
             // Events
             //     $tasksLimiter.addEventListener('change',(event)=>{

@@ -1,6 +1,5 @@
-import { dashboard } from "../components/dashboard.js"
+// import { dashboard } from "../components/dashboard.js"
 import { home } from "../components/home.js"
-dashboard
 
 
 export const _routes={
@@ -12,7 +11,7 @@ export const _routes={
     "Dashboard":{
         hash:"#/Dashboard",
         title:"Dashboard",
-        success:key=>dashboard()
+        success:key=>console.log('Hey, this is the Dashboard')
     },
     "Trash":{
         hash:"#/Trash",

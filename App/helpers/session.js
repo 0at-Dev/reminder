@@ -8,9 +8,12 @@ const $login=()=>{
             $key.type='text'
             $key.id='Key'
             $key.name='Key'
+            $key.autocomplete='off'
+            $key.spellcheck=false
+            $key.placeholder='Usuario'
         let $submit= document.createElement('button')
             $submit.type='submit'
-            $submit.innerHTML=':chicken'
+            $submit.innerHTML=`&#127928;`
 
         $form.appendChild($key)
         $form.appendChild($submit)
