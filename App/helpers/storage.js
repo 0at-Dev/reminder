@@ -1,10 +1,10 @@
 
-export const get=(key)=>{
+const get=(key)=>{
     let response= localStorage.getItem(key)
         response= JSON.parse(response)
     return response
 }
-export const set=(setup)=>{
+const set=(setup)=>{
     let {key,data}= setup    
     
 
@@ -28,7 +28,23 @@ export const set=(setup)=>{
 
         }
 }
-export const session=(key)=>{
+const remove=(setup)=>{
+    let {key,ref}=setup
+
+    let _validate= localStorage.getItem(key)
+    let _response= _validate===null?null:JSON.parse(_validate)
+
+        if( _response !==null){
+            if(_response.tasks){
+                let _data=_response.tasks.filter(task=> task.Id !== ref)
+                    localStorage.setItem(key,JSON.stringify({tasks:_data}))
+            }
+        }
+
+
+
+}
+const session=(key)=>{
     let _validate= sessionStorage.getItem(key)
         
     if(_validate !==null){
@@ -38,4 +54,4 @@ export const session=(key)=>{
     return {session:false,created:true,key}
 
 } 
-export default {get,set,session}
+export default {get,set,remove,session}

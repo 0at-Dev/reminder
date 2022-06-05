@@ -73,7 +73,7 @@ const filter=(limit,length)=>{
             
                 // Events
                 editor.listen(key)
-                dashboard.listen()
+                dashboard.listen(key)
                 // alert(`Bienvenido,${_session}`)
                 // $Root.appendChild($html)
 

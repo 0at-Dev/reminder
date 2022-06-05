@@ -47,7 +47,7 @@ const card=(data)=>{
 
     let $card= document.createElement('div')
         $card.classList.add('card')
-        $card.id=Id
+        
 
 
         let $title=document.createElement('h3')
@@ -59,11 +59,17 @@ const card=(data)=>{
         let $deadline=document.createElement('h4')
             $deadline.textContent=Deadline
         // let $state=document.createElement('h5')  
+        let $delete= document.createElement('button')
+            $delete.classList.add('delete-task')
+            $delete.id=Id
+            $delete.innerHTML=`&#128165;`
+
 
         $card.appendChild($title)
         $card.appendChild($description)
         $card.appendChild($created)
         $card.appendChild($deadline)
+        $card.appendChild($delete)
         // $card.appendChild($state)
 
     return $card
@@ -86,36 +92,21 @@ const build=(key)=>{
         }
         return []
 }
-const listen=()=>{
+const listen=(key)=>{
 
     // Delete
 
-    let $cards= document.querySelectorAll('.dashboard .card')
+    let $cards= document.querySelectorAll('.dashboard .card .delete-task')
         $cards.forEach($card=>{
 
             $card.addEventListener('click',e=>{
                 e.preventDefault()
-                console.log(e.currentTarget.id)
-                
-                // let _today=date.today()
-                // let _day=_today.day<10? `0${_today.day}`:_today.day
-                // let _month=_today.month<10? `0${_today.month + 1}`:_today.month + 1
-                // let _year=_today.year
 
+                let _ref=e.currentTarget.id
+                    storage.remove({key,ref:_ref})
 
-                // let _task= document.getElementById('Task')
-                // let _description= document.getElementById('Description')
-                // let _deadline=document.getElementById('Deadline')
-                //     let _form={
-                //         Id:idGenerator(),
-                //         Task:_task.value,
-                //         Description:_description.value,
-                //         Created:`${_year}-${_month}-${_day}`,
-                //         Deadline:_deadline.value,
-                //     }
-                //     let _validate=validate(_form)
-
-                //     if(_validate.data !==null)storage.set({key,data:_validate.data})
+                    console.log(storage.get(key))
+              
 
             })
     })
