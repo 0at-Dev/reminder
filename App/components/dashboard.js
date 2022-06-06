@@ -11,29 +11,8 @@ const template=()=>{
 
         return $main
 }
-const filterTemplate=()=>{
-    let $filterContainer= document.createElement('div')
-        $filterContainer.className='task-filter'
 
-        return $filterContainer
-}
-const filterBlock=(setup)=>{
-    let {id,title}=setup
-    let $filter = document.createElement('span')
-        $filter.className='filter-block'
-        let $checkbox=document.createElement('input')
-            $checkbox.type='checkbox'
-            $checkbox.id=id
-        let $label=document.createElement('label')
-            $label.htmlFor=id
-            $label.textContent=title
 
-            $filter.appendChild($checkbox)
-            $filter.appendChild($label)
-
-        return $filter
-
-}
 // Id (random)
 // Task 
 // Description 
@@ -41,7 +20,9 @@ const filterBlock=(setup)=>{
 // Deadline
 // State
 
+const filter=()=>{
 
+}
 const card=(data)=>{
     let {Id,Task,Description,Created,Deadline}=data
 
@@ -75,16 +56,6 @@ const card=(data)=>{
     return $card
 }
 
-const dashboard=async()=>{
-
-    let $Root= document.getElementById('Root')
-    let $wrapper= wrapperTemplate()
-    let $filter= filterTemplate()
-    let $filterBlock= filterBlock({id:'Recientes',title:'Màs Recientes'})
-        
-        $Root.innerHTML=''
-        
-}
 const build=(key)=>{
     let _response=storage.get(key)
         if(_response!==null){
@@ -97,6 +68,8 @@ const listen=(key)=>{
     // Delete
 
     let $cards= document.querySelectorAll('.dashboard .card .delete-task')
+    let $dashboard=$cards[0].parentElement.parentElement
+
         $cards.forEach($card=>{
 
             $card.addEventListener('click',e=>{
@@ -104,8 +77,10 @@ const listen=(key)=>{
 
                 let _ref=e.currentTarget.id
                     storage.remove({key,ref:_ref})
-
-                    console.log(storage.get(key))
+                    
+                    let $cards=build(key)
+                        $dashboard.innerHTML=''
+                        $cards.map(card=>$dashboard.appendChild(card))
               
 
             })

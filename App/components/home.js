@@ -48,9 +48,10 @@ const filter=(limit,length)=>{
 
             if(_session===null){
                 let $editor=editor.template()
+                let $dashboard=dashboard.template()
                     $Root.appendChild($editor)
+                    $Root.appendChild($dashboard)
 
-                
 
                     // Events
                     editor.listen(key)

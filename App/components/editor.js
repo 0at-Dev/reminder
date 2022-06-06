@@ -9,6 +9,7 @@ import date from "../helpers/date.js"
 import { idGenerator } from "../helpers/idGenerator.js"
 import storage from "../helpers/storage.js"
 import { validate } from "../helpers/validate.js"
+import dashboard from "./dashboard.js"
 
 
 
@@ -68,6 +69,7 @@ const template=()=>{
 const listen=(key)=>{
     // let $form=document.getElementById('CreationForm')
     let $save= document.getElementById('SaveTask')
+    let $dashboard= document.querySelector('.dashboard')
         $save.addEventListener('click',e=>{
             e.preventDefault()
             
@@ -89,7 +91,14 @@ const listen=(key)=>{
                 }
                 let _validate=validate(_form)
 
-                if(_validate.data !==null)storage.set({key,data:_validate.data})
+                if(_validate.data !==null){
+                    storage.set({key,data:_validate.data})
+                    let $cards=dashboard.build(key)
+                        $dashboard.innerHTML=''
+                        $cards.map(card=>$dashboard.appendChild(card))
+                
+                }
+                    
 
         })
 

@@ -23,7 +23,10 @@ const $login=()=>{
 const validate=(form)=>{
     return form.Key.trim() !== '' ? {access:true,data:form}:{access:false,data:null}
 }
-export const session=()=>{
+const destroy=(key)=>{
+    sessionStorage.removeItem(key)
+}
+const init=()=>{
     const $root= document.getElementById('Root')
     const $template= $login()
         
@@ -50,3 +53,5 @@ export const session=()=>{
                     }
             })
 }
+
+export default {init,destroy}
