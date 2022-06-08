@@ -4,6 +4,10 @@ import storage from '../helpers/storage.js'
 import date from "../helpers/date.js"
 import { idGenerator } from "../helpers/idGenerator.js"
 import { validate } from "../helpers/validate.js"
+import strain  from "../helpers/strain.js"
+
+const _closerEmoji='&#128561'
+const _furtherEmoji='&#128564'
 
 const template=()=>{
     let $main=document.createElement('section')
@@ -21,7 +25,20 @@ const template=()=>{
 // State
 
 const filter=()=>{
+    let $filter=document.createElement('span')
+        $filter.classList.add('filter-container')
+        let $switcher= document.createElement('input')
+            $switcher.type='checkbox'
+            $switcher.id='Proximity'
+        let $label=document.createElement('label')
+            $label.htmlFor='Proximity'
+            $label.innerHTML=_closerEmoji
 
+            $filter.appendChild($switcher)
+            $filter.appendChild($label)
+
+    return $filter
+        
 }
 const card=(data)=>{
     let {Id,Task,Description,Created,Deadline}=data
@@ -69,6 +86,7 @@ const listen=(key)=>{
 
     let $cards= document.querySelectorAll('.dashboard .card .delete-task')
     let $dashboard=$cards[0].parentElement.parentElement
+    let $proximity=document.getElementById('Proximity')
 
         $cards.forEach($card=>{
 
@@ -84,7 +102,21 @@ const listen=(key)=>{
               
 
             })
-    })
+        })
+        $proximity.addEventListener('change',e=>{
+            let $label=e.currentTarget.parentElement.querySelector('label')
+            let _further=e.target.checked
+            let _tasks= storage.get(key).tasks
+            if(_further){
+                $label.innerHTML=_furtherEmoji
+                strain.proximity({further:_further,tasks:_tasks})
+            }
+            if(!_further){
+                $label.innerHTML=_closerEmoji
+                strain.proximity({further:_further,tasks:_tasks})
+
+            }
+        })
 
 }
-export default {template,build,listen,card}
+export default {template,build,listen,card,filter}

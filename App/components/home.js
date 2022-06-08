@@ -28,66 +28,60 @@ const $template=()=>{
         $main.appendChild($nextTaskContainer)
         return $main
 }
-const filter=(limit,length)=>{
-    let $tasks= document.querySelectorAll('a.task-card')
-        if($tasks.length>0){
-            for (let index = limit - 1; index < $tasks.length; index++) {
-                $tasks[index].remove()
-            }
-            
-        }
-}
-
-    export const home=async(key)=>{
-        let _session=storage.get(key)
-        let $Root= document.getElementById('Root')
-        let $html=$template()
-            $Root.innerHTML=''
-            
-        // let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
-
-            if(_session===null){
-                let $editor=editor.template()
-                let $dashboard=dashboard.template()
-                    $Root.appendChild($editor)
-                    $Root.appendChild($dashboard)
 
 
-                    // Events
-                    editor.listen(key)
-            }
+export const home=async(key)=>{
+    let _session=storage.get(key)
+    let $Root= document.getElementById('Root')
+    let $html=$template()
+        $Root.innerHTML=''
+        
+    // let $tasksLimiter=document.querySelector('.closest-task-filter>input[type="number"]')
 
-
-            if(_session!==null){
-
-                console.log(_session)
-
-                let $editor=editor.template()
-                let $dashboard=dashboard.template()
-                let $cards=dashboard.build(key)
-                    
-                    $cards.map(card=>$dashboard.appendChild(card))
-
+        if(_session===null){
+            let $editor=editor.template()
+            let $dashboard=dashboard.template()
+            let $proximity=dashboard.filter()
                 $Root.appendChild($editor)
                 $Root.appendChild($dashboard)
+                $Root.appendChild($proximity)
 
-            
+
                 // Events
                 editor.listen(key)
-                dashboard.listen(key)
-                // alert(`Bienvenido,${_session}`)
-                // $Root.appendChild($html)
-
-            }
-            
+        }
 
 
-            // document.body.querySelector('header').appendChild(navegator())
+        if(_session!==null){
 
+            let $editor=editor.template()
+            let $dashboard=dashboard.template()
+            let $proximity=dashboard.filter()
+            let $cards=dashboard.build(key)
+                
+                $cards.map(card=>$dashboard.appendChild(card))
+
+            $Root.appendChild($editor)
+            $Root.appendChild($dashboard)
+            $Root.appendChild($proximity)
+
+        
             // Events
-            //     $tasksLimiter.addEventListener('change',(event)=>{
+            editor.listen(key)
+            dashboard.listen(key)
+            // alert(`Bienvenido,${_session}`)
+            // $Root.appendChild($html)
 
-            //         console.log(event.currentTarget.value)
-            //         filter(event.target.value,_tasks.length)
-            // }) 
-    }
+        }
+        
+
+
+        // document.body.querySelector('header').appendChild(navegator())
+
+        // Events
+        //     $tasksLimiter.addEventListener('change',(event)=>{
+
+        //         console.log(event.currentTarget.value)
+        //         filter(event.target.value,_tasks.length)
+        // }) 
+}
