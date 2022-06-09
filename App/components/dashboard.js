@@ -73,10 +73,13 @@ const card=(data)=>{
     return $card
 }
 
-const build=(key)=>{
+const build=(setup)=>{
+    let {key,proximity}=setup
     let _response=storage.get(key)
-        if(_response!==null){
-            return [..._response.tasks.map(task=>card(task))]
+        console.log(_response)
+        let _sort=strain.proximity({further:proximity,tasks:_response.tasks})
+        if(_sort!==null){
+            return [..._sort.map(task=>card(task))]
         }
         return []
 }
@@ -96,7 +99,7 @@ const listen=(key)=>{
                 let _ref=e.currentTarget.id
                     storage.remove({key,ref:_ref})
                     
-                    let $cards=build(key)
+                    let $cards=build({key,proximity:false})
                         $dashboard.innerHTML=''
                         $cards.map(card=>$dashboard.appendChild(card))
               
@@ -106,14 +109,22 @@ const listen=(key)=>{
         $proximity.addEventListener('change',e=>{
             let $label=e.currentTarget.parentElement.querySelector('label')
             let _further=e.target.checked
-            let _tasks= storage.get(key).tasks
+            // let _tasks= storage.get(key).tasks
             if(_further){
                 $label.innerHTML=_furtherEmoji
-                strain.proximity({further:_further,tasks:_tasks})
+                // let _sort=strain.proximity({further:_further,tasks:_tasks})
+                let $cards=build({key,proximity:true})
+                    $dashboard.innerHTML=''
+                    $cards.map(card=>$dashboard.appendChild(card))
+
             }
             if(!_further){
                 $label.innerHTML=_closerEmoji
-                strain.proximity({further:_further,tasks:_tasks})
+                // let _sort=strain.proximity({further:_further,tasks:_tasks})
+                let $cards=build({key,proximity:false})
+                    $dashboard.innerHTML=''
+                    $cards.map(card=>$dashboard.appendChild(card))
+
 
             }
         })

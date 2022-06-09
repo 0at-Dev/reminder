@@ -7,12 +7,17 @@ const importance=(tasks)=>{
 const proximity=(setup)=>{
     let {further,tasks}=setup
     if(further){
-        tasks.sort((a, b) => a.Deadline - b.Deadline);
+        tasks.sort((a, b) => new Date(b.Deadline) - new Date(a.Deadline));
         console.log(tasks)
+
+        return tasks
     }
     if(!further){
-        tasks.sort((a, b) => b.Deadline - a.Deadline);
+        
+        tasks.sort((a, b) => new Date(a.Deadline) - new Date(b.Deadline));
         console.log(tasks)
+
+        return tasks
     }
     // let _filtered= tasks.filter(task=>)
 }
