@@ -40,17 +40,17 @@ const remove=(setup)=>{
                     localStorage.setItem(key,JSON.stringify({tasks:_data}))
             }
         }
-
-
-
 }
 const session=(key)=>{
     let _validate= sessionStorage.getItem(key)
         
     if(_validate !==null){
+        sessionStorage.setItem('active',key)
         return {session:true,created:false,key}
     }
         sessionStorage.setItem(key,true)
+        sessionStorage.setItem('active',key)
+
     return {session:false,created:true,key}
 
 } 

@@ -5,10 +5,10 @@
 // Creation date
 // Deadline
 
-import date from "../helpers/date.js"
-import { idGenerator } from "../helpers/idGenerator.js"
-import storage from "../helpers/storage.js"
-import { validate } from "../helpers/validate.js"
+import date from "../../helpers/date.js"
+import { idGenerator } from "../../helpers/idGenerator.js"
+import storage from "../../helpers/storage.js"
+import { validate } from "../../helpers/validate.js"
 import dashboard from "./dashboard.js"
 
 
@@ -39,17 +39,17 @@ const form=()=>{
         let $deadlineInput= input({type:'date',id:'Deadline',placeholder:'Limite para hacer la tarea'})
             $deadlineInput.value=`${_year}-${_month}-${_day}`
             $deadlineInput.min=`${_year}-${_month}-${_day}`
+        let $importanceInput=input({type:'checkbox',id:'Importance',placeholder:''})
             
         let $submit=document.createElement('button')
             $submit.type='submit'
             $submit.id='SaveTask'
             $submit.textContent='Guardar'
 
-
-
             $form.appendChild($taskInput)
             $form.appendChild($descriptionInput)
             $form.appendChild($deadlineInput)
+            $form.appendChild($importanceInput)
             $form.appendChild($submit)
 
     return $form
@@ -67,7 +67,6 @@ const template=()=>{
 }
 
 const listen=(key)=>{
-    // let $form=document.getElementById('CreationForm')
     let $save= document.getElementById('SaveTask')
     let $dashboard= document.querySelector('.dashboard')
         $save.addEventListener('click',e=>{
@@ -82,12 +81,15 @@ const listen=(key)=>{
             let _task= document.getElementById('Task')
             let _description= document.getElementById('Description')
             let _deadline=document.getElementById('Deadline')
+            let _importance=document.getElementById('Importance')
                 let _form={
                     Id:idGenerator(),
                     Task:_task.value,
                     Description:_description.value,
                     Created:`${_year}-${_month}-${_day}`,
                     Deadline:_deadline.value,
+                    Importance:_importance.value,
+                    State:0
                 }
                 let _validate=validate(_form)
 
@@ -98,12 +100,7 @@ const listen=(key)=>{
                         $cards.map(card=>$dashboard.appendChild(card))
                 
                 }
-                    
-
         })
-
-      
-
 
 }
 

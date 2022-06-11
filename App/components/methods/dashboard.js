@@ -1,10 +1,10 @@
-import api from '../helpers/api.js'
-import get  from '../helpers/query.js'
-import storage from '../helpers/storage.js'
-import date from "../helpers/date.js"
-import { idGenerator } from "../helpers/idGenerator.js"
-import { validate } from "../helpers/validate.js"
-import strain  from "../helpers/strain.js"
+import api from '../../helpers/api.js'
+import get  from '../../helpers/query.js'
+import storage from '../../helpers/storage.js'
+import date from "../../helpers/date.js"
+import { idGenerator } from "../../helpers/idGenerator.js"
+import { validate } from "../../helpers/validate.js"
+import strain  from "../../helpers/strain.js"
 
 const _closerEmoji='&#128561'
 const _furtherEmoji='&#128564'
@@ -76,7 +76,6 @@ const card=(data)=>{
 const build=(setup)=>{
     let {key,proximity}=setup
     let _response=storage.get(key)
-        console.log(_response)
         let _sort=strain.proximity({further:proximity,tasks:_response.tasks})
         if(_sort!==null){
             return [..._sort.map(task=>card(task))]

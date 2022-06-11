@@ -25,6 +25,10 @@ const validate=(form)=>{
 }
 const destroy=(key)=>{
     sessionStorage.removeItem(key)
+    localStorage.removeItem(key)
+}
+const out=()=>{
+    sessionStorage.removeItem('active')
 }
 const init=()=>{
     const $root= document.getElementById('Root')
@@ -41,6 +45,7 @@ const init=()=>{
                 let _validate=validate(_form)
                     if(_validate.access){
                         let _session=storage.session(_validate.data['Key'])
+
                         if(_session.session){
                             alert('Hay sesion')
                             router(_session.key)
@@ -54,4 +59,4 @@ const init=()=>{
             })
 }
 
-export default {init,destroy}
+export default {init,destroy,out}

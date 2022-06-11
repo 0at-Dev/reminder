@@ -1,5 +1,5 @@
 // import { dashboard } from "../components/dashboard.js"
-import { home } from "../components/home.js"
+import { home } from "../components/routes/home.js"
 
 
 export const _routes={
