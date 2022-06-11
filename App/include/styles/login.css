@@ -1,0 +1,100 @@
+@font-face {
+    font-family: paragraphs;
+    src: url(../fonts/Oxygen/OxygenMono-Regular.ttf);
+}
+@font-face {
+    font-family: titles;
+    src: url(../fonts/Rubik_Mono_One/RubikMonoOne-Regular.ttf);
+}
+@font-face {
+    font-family: subtitles;
+    src: url(../fonts/Signika_Negative/SignikaNegative-Regular.ttf);
+}
+@font-face {
+    font-family: subtitlesBold;
+    src: url(../fonts/Signika_Negative/SignikaNegative-Bold.ttf);
+}
+:root{
+    --light-color:#EEEEEE;
+    --dark-color:#000000;
+    --blue-color:#34B3F1;
+    --orange-color:#F15412;
+
+    --fontsize-clamp-901:clamp(12px,1.5vw,2.2vw);
+    --fontsize-clamp-900:clamp(15px,1.5vw,2.2vw);
+    
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style:solid ;
+    border-width:.2em ;
+    border-color:var(--dark-color) ;
+}
+    .login-form h2{
+        margin-top: 3%;
+        margin-bottom: 3%;
+        font-family: subtitlesBold;
+        text-transform: uppercase;
+        font-size: .9em;
+    }
+   
+    .login-form input[type='text']{
+        margin-top: 3%;
+        margin-bottom: 3%;
+        height: fit-content;
+        width: 80%;
+        font-size: .8em;
+        font-family: paragraphs;
+        border: none;
+        border-bottom-style:solid ;
+        border-bottom-color:var(--dark-color) ;
+        border-bottom-width:.1em ;
+        text-indent: .3em;
+    }
+    
+
+    .login-form button{
+        margin-top: 3%;
+        margin-bottom: 3%;
+        height: fit-content;
+        width: fit-content;
+        border: none;
+        background-color: transparent;
+        font-size: 1.2em;
+    }
+@media only screen and (min-width:901px){
+    .login-form{
+        width: fit-content;
+        min-height: 20%;
+        height: fit-content;
+        padding: 3%;
+        justify-content: space-around;
+    }
+        .login-form input[type='text']{
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+        .login-form button{
+            cursor: pointer;
+        }
+}
+@media only screen and (max-width:900px){
+    .login-form{
+        width: fit-content;
+        min-height:40% ;
+        padding: 3%;
+        justify-content: space-around;
+    }
+        .login-form input[type='text']{
+            padding-top: 1%;
+            padding-bottom: 1%;
+        }
+        .login-form button{
+            cursor: pointer;
+        }
+
+}
+
+@media only screen and (orientation:landscape) and (hover:none){}

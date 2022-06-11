@@ -3,18 +3,22 @@ import storage from "./storage.js";
 
 const $login=()=>{
     let $form= document.createElement('form')
+        $form.classList.add('login-form')
         $form.id='Session'
+        let $title=document.createElement('h2')
+            $title.textContent='📓Block de notas de: '
         let $key= document.createElement('input')
             $key.type='text'
             $key.id='Key'
             $key.name='Key'
             $key.autocomplete='off'
             $key.spellcheck=false
-            $key.placeholder='Usuario'
+            $key.placeholder='Nombre'
         let $submit= document.createElement('button')
             $submit.type='submit'
-            $submit.innerHTML=`&#127928;`
+            $submit.innerHTML=`&#128682;`
 
+        $form.appendChild($title)
         $form.appendChild($key)
         $form.appendChild($submit)
 

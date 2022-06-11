@@ -11,8 +11,10 @@
     src: url(../fonts/Signika_Negative/SignikaNegative-Regular.ttf);
 }
 :root{
-    --light-color:#CCCCCC;
-    --dark-color:#333333;
+    --light-color:#EEEEEE;
+    --dark-color:#000000;
+    --blue-color:#34B3F1;
+    --orange-color:#F15412;
 
     --fontsize-clamp-901:clamp(12px,1.5vw,2.2vw);
     --fontsize-clamp-900:clamp(15px,1.5vw,2.2vw);
@@ -50,3 +52,36 @@ a{
 *{
     outline: none;
 }
+/* header{
+
+} */
+main{
+    width: 100%;
+    height: 100vh;
+}
+    .root-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+        .root-container .root{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+@media only screen and (max-width:900px){
+    main{
+        font-size: var(--fontsize-clamp-900);
+    }
+}
+@media only screen and (min-width:901px){
+    main{
+        font-size: var(--fontsize-clamp-901)
+    }
+}
+@media only screen and (orientation:landscape) and (hover:none){}
