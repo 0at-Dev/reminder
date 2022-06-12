@@ -11,6 +11,7 @@
     src: url(../fonts/Signika_Negative/SignikaNegative-Regular.ttf);
 }
 :root{
+    /* Color pallette link https://colorhunt.co/palette/f1541200000034b3f1eeeeee */
     --light-color:#EEEEEE;
     --dark-color:#000000;
     --blue-color:#34B3F1;
