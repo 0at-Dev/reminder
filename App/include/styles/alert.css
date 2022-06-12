@@ -1,0 +1,72 @@
+@font-face {
+    font-family: paragraphs;
+    src: url(../fonts/Oxygen/OxygenMono-Regular.ttf);
+}
+@font-face {
+    font-family: titles;
+    src: url(../fonts/Rubik_Mono_One/RubikMonoOne-Regular.ttf);
+}
+@font-face {
+    font-family: subtitles;
+    src: url(../fonts/Signika_Negative/SignikaNegative-Regular.ttf);
+}
+:root{
+    --light-color:#EEEEEE;
+    --dark-color:#000000;
+    --blue-color:#34B3F1;
+    --orange-color:#F15412;
+
+    --fontsize-clamp-901:clamp(12px,1.5vw,2.2vw);
+    --fontsize-clamp-900:clamp(15px,1.5vw,2.2vw);
+
+    --alertCharacters:7;
+    --typingSpeed:2s;
+    
+}
+.alert{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    padding: 3%;
+
+}
+    .alert h1{
+        font-family:paragraphs;
+        position: relative;
+        font-size: .9em;
+    }
+    .alert h1::before{
+        content:'';
+        position: absolute;
+        left:0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: white;
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
+    }
+    .alert h1::after{
+        content: '👀';
+        font-size: 1.5em;
+        position: absolute;
+        left:0;
+        top:-50%;
+        bottom: 0;
+        right: 0;
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
+
+    }
+
+
+    @keyframes typing {
+        to{
+            left: 100%;
+        }
+    }
+
+ 
+
+@media only screen and (min-width:901px){
+   
+}
+@media only screen and (orientation:landscape) and (hover:none){}
