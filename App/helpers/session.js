@@ -1,3 +1,5 @@
+import alert from "../components/methods/alert.js";
+import { delay } from "./delay.js";
 import { router } from "./router.js";
 import storage from "./storage.js";
 
@@ -36,13 +38,15 @@ const out=()=>{
 }
 const init=()=>{
     const $root= document.getElementById('Root')
+    const $modal=document.getElementById('Modal')
     const $template= $login()
-        
+    const $alert=alert.template()
             $root.appendChild($template)
+            $modal.appendChild($alert)
 
             // Event
 
-            $template.addEventListener('submit',e=>{
+            $template.addEventListener('submit',async e=>{
                 e.preventDefault()
                 
                 let _form=Object.fromEntries(new FormData(e.target))
@@ -51,12 +55,16 @@ const init=()=>{
                         let _session=storage.session(_validate.data['Key'])
 
                         if(_session.session){
-                            alert('Hay sesion')
+                            alert.typeTheMessage()
+                            alert.set('Ya existe una sesión')
+                            await delay(2000)
                             router(_session.key)
                             
                         }
                         if(_session.session===false){
-                            alert('No hay sesion. Se ha creado una')
+                            alert.typeTheMessage()
+                            alert.set('No existe una sesión. Se ha creado una')
+                            await delay(2000)
                             router(_session.key)
                         }
                     }

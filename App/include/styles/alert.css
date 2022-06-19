@@ -19,8 +19,8 @@
     --fontsize-clamp-901:clamp(12px,1.5vw,2.2vw);
     --fontsize-clamp-900:clamp(15px,1.5vw,2.2vw);
 
-    --alertCharacters:7;
-    --typingSpeed:2s;
+    --alertCharacters:0;
+    --typingSpeed:1.8s;
     
 }
 .alert{
@@ -34,6 +34,7 @@
         font-family:paragraphs;
         position: relative;
         font-size: .9em;
+        min-width: max-content;
     }
     .alert h1::before{
         content:'';
@@ -43,7 +44,6 @@
         bottom: 0;
         right: 0;
         background-color: white;
-        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
     }
     .alert h1::after{
         content: '👀';
@@ -53,10 +53,21 @@
         top:-50%;
         bottom: 0;
         right: 0;
-        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
-
     }
 
+    .addMessage::before{
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
+    }
+    .addMessage::after{
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
+    }
+
+    .removeMessage::before{
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) reverse;
+    }
+    .removeMessage::after{
+        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) reverse;
+    }
 
     @keyframes typing {
         to{

@@ -1,17 +1,22 @@
 import api from '../../helpers/api.js'
+import { delay } from '../../helpers/delay.js'
 import get  from '../../helpers/query.js'
 import session from '../../helpers/session.js'
 import storage from '../../helpers/storage.js'
+import alert from '../methods/alert.js'
 import dashboard from '../methods/dashboard.js'
 
 import editor from '../methods/editor.js'
 import { navegator } from '../methods/navegator.js'
+delay
+
 
 export const home=async(key)=>{
     let _session=storage.get(key)
     let $Root= document.getElementById('Root')
         $Root.innerHTML=''
 
+        
         if(_session===null){
             let $editor=editor.template()
             let $dashboard=dashboard.template()
@@ -20,9 +25,13 @@ export const home=async(key)=>{
                 $Root.appendChild($dashboard)
                 $Root.appendChild($proximity)
 
-
+                
                 // Events
                 editor.listen(key)
+
+                await delay(2000)
+                alert.eraseTheMessage()
+                // alert.set(`Bienvenido ${key}, Comienza a crear tus notas`)
         }
 
 
@@ -39,11 +48,14 @@ export const home=async(key)=>{
             $Root.appendChild($dashboard)
             $Root.appendChild($proximity)
 
-        
+            
             // Events
             editor.listen(key)
             dashboard.listen(key)
 
+            await delay(2000)
+            alert.eraseTheMessage()
+            // alert.set(`Bienvenido ${key}`)
         }
         // Events
         // window.addEventListener("beforeunload",(e) =>{
