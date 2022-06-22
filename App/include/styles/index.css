@@ -73,7 +73,17 @@ main{
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
+
+            .root>.editor{
+                width: 30%;
+                height: fit-content;
+                left: 10%;
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+            }
 
 @media only screen and (max-width:900px){
     main{
