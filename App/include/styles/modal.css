@@ -21,10 +21,10 @@
     
 }
 .modal{
-    position: fixed;
-    display: flex;
     width: fit-content;
-    height: fit-content;
+    height: 10vh;
+    display: flex;
+    align-items: center;
     top: 3%;
     left: 3%;
 }
