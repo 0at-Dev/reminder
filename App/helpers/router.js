@@ -7,21 +7,6 @@ export const _routes={
         hash:"",
         title:"Home",
         success:key=>home(key)
-    },
-    "Dashboard":{
-        hash:"#/Dashboard",
-        title:"Dashboard",
-        success:key=>console.log('Hey, this is the Dashboard')
-    },
-    "Trash":{
-        hash:"#/Trash",
-        title:"Trash",
-        success:key=>console.log('Hey, this is the Trash')
-    },
-    "New":{
-        hash:"#/New",
-        title:"New",
-        success:key=>console.log('Hey, this is the New method')
     }
 }
 

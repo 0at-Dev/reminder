@@ -36,39 +36,51 @@ const destroy=(key)=>{
 const out=()=>{
     sessionStorage.removeItem('active')
 }
-const init=()=>{
-    const $root= document.getElementById('Root')
-    const $modal=document.getElementById('Modal')
-    const $template= $login()
-    const $alert=alert.template()
-            $root.appendChild($template)
-            $modal.appendChild($alert)
+const init=async()=>{
 
-            // Event
-
-            $template.addEventListener('submit',async e=>{
-                e.preventDefault()
+            let _session=storage.isSession()
                 
-                let _form=Object.fromEntries(new FormData(e.target))
-                let _validate=validate(_form)
-                    if(_validate.access){
-                        let _session=storage.session(_validate.data['Key'])
+                if(_session.hasSession===true){
+                    // Directo a dashboard(route)
+                        console.log('Hay sesion')
+                }
+                if(_session.hasSession===false){
+                    // Login
+                    const $root= document.getElementById('Root')
+                    const $modal=document.getElementById('Modal')
 
-                        if(_session.session){
-                            alert.typeTheMessage()
-                            alert.set('Ya existe una sesión')
-                            await delay(2000)
-                            router(_session.key)
-                            
-                        }
-                        if(_session.session===false){
-                            alert.typeTheMessage()
-                            alert.set('No existe una sesión. Se ha creado una')
-                            await delay(2000)
-                            router(_session.key)
-                        }
-                    }
-            })
+                    const $loginForm= $login()
+                    const $alert=alert.template()
+                    
+                    // Injection
+                    $root.appendChild($loginForm)
+                    $modal.appendChild($alert)
+
+                    // Events
+                    $loginForm.addEventListener('submit',async e=>{
+                        e.preventDefault()
+                        
+                        let _form=Object.fromEntries(new FormData(e.target))
+                        let _validate=validate(_form)//If it's empty data
+
+                            if(_validate.access===true){
+
+                                storage.createSession(_form.Key)
+
+                                if(_session.isStoring===true){
+                                   
+                                }
+                                if(_session.isStoring===false){
+                                    
+                                }
+                            }
+                            if(_validate.access===false){
+                                alert.typeTheMessage()
+                                alert.set('El campo esta vacio')
+                            }
+                    })
+
+                }
 }
 
 export default {init,destroy,out}

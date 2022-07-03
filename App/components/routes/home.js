@@ -8,7 +8,6 @@ import dashboard from '../methods/dashboard.js'
 
 import editor from '../methods/editor.js'
 import { navegator } from '../methods/navegator.js'
-delay
 
 
 export const home=async(key)=>{
