@@ -67,14 +67,16 @@ main{
         flex-direction: column;
         justify-content: flex-end;
     }
-        .root-container .root{
+        .root-container>.root{
             width: 100%;
             height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
+            /* Editor */
             .root>.editor{
                 display: flex;
                 flex-direction: column;
@@ -137,27 +139,29 @@ main{
                             font-family: paragraphs;
                             text-indent: 0.3em;
                         }
-                        .importance-check-container>label::before{
+                        .importance-check-container>label::after{
                             content: '😴';
                         }
-                        .importance-check-container>input[type='checkbox']:checked ~label::before{
+                        .importance-check-container>input[type='checkbox']:checked ~label::after{
                             content: '😱';
                         }
-
+            /* Editor */
+            /* Dashboard */
             .root>.dashboard{
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 margin-left: 2%;
                 margin-right: 2%;
-
+                overflow-y: auto;
             } 
                 .card{
-                    width: fit-content;
-                    height: fit-content;
                     display: flex;
                     flex-direction: column;
                     background-color: var(--light-color);
                     padding: 1%;
+                    margin-top: 2%;
+                    margin-bottom: 2%;
                     border-radius: .5em;
                 }
                 .card>h3,.card>h4,.card>p,.card>button{
@@ -177,7 +181,28 @@ main{
                 .card>h4,.card>p{
                     font-size: .7em;
                 }
-
+            /* Dashboard */
+            /* Filter */
+            span.filter-container {
+                width: fit-content;
+                height: fit-content;
+                display: flex;
+                flex-direction: row;
+                border-style: solid;
+                border-width: 0.1em;
+                border-color: var(--dark-color);
+                border-radius: 1em;
+                padding:.2em;
+                position: absolute;
+            }
+                span.filter-container>input[type='checkbox']{
+                    display: none;
+                }
+                span.filter-container>label{
+                    font-size: 1em;
+                    user-select: none;
+                }
+            /* Filter */
 
 @media only screen and (max-width:900px){
     main{
@@ -190,8 +215,20 @@ main{
                 min-height:50% ;
                 width: 90%;
             }
+            .root>.editor{
+                align-items: center;
+            }
+            span.filter-container{
+                top: 0%;
+                right: 2%;
+            }
+                .card{
+                    width: 70%;
+                    height: 70%;
+                }
                 .creation-form{
-                        
+                    width: 70%;
+                    height: 80%;
                 }
 }   
 @media only screen and (min-width:901px){
@@ -209,6 +246,17 @@ main{
                 align-items: center;
                 justify-content: center;
             }
+            span.filter-container{
+                top: 0%;
+                right: 5%;
+            }
+                span.filter-container>label{
+                    cursor: pointer;
+                }
+                .card{
+                    width: 40%;
+                    height: 50%;
+                }
                 .creation-form{
                     padding-top: 5%;
                     padding-bottom: 5%;

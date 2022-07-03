@@ -51,7 +51,7 @@ const form=()=>{
             $deadlineInput.min=`${_year}-${_month}-${_day}`
         let $importanceContainer= document.createElement('span')
             $importanceContainer.classList.add('importance-check-container')
-            let $importanceLabel= label({htmlFor:'Importance',content:'Importante?'})
+            let $importanceLabel= label({htmlFor:'Importance',content:'Nivel de importancia: '})
             let $importanceInput=input({type:'checkbox',id:'Importance',placeholder:''})
                 $importanceContainer.appendChild($importanceInput)
                 $importanceContainer.appendChild($importanceLabel)
