@@ -4,7 +4,7 @@
 
 const get=(key)=>{//Obtener info del LS
     let response= localStorage.getItem(key)
-        response= JSON.parse(response)
+        response= response===null?null:JSON.parse(response)
     return response
 }
 const set=(setup)=>{// Guardar info en el LS
@@ -46,20 +46,26 @@ const remove=(setup)=>{//Remover info del LS
 }
 const isSession=()=>{//validar sesion
     let _session=sessionStorage.getItem('active')
+    let _key=_session
+    let _store=get(_key)
 
     if(_session!==null){
-        let _key=_session
-        let _storing=localStorage.getItem(_key)
         
-            if(_storing===null){
-                return {isStoring:false,hasSession:true,key:_key}
+            if(_store===null){
+                return {isStoring:false,hasSession:true,session:{key:_key,store:null}}
             }
-            if(_storing!==null){
-                return {isStoring:true,hasSession:true,key:_key}
+            if(_store!==null){
+                return {isStoring:true,hasSession:true,session:{key:_key,store:_store}}
             }
     }
     if(_session===null){
-        return {isStoring:null,hasSession:false}
+
+        if(_store===null){
+            return {isStoring:false,hasSession:false,session:{key:_key,store:null}}
+        }
+        if(_store!==null){
+            return {isStoring:true,hasSession:false,session:{key:_key,store:_store}}
+        }
     }   
 } 
 const createSession=(key)=>{//crear sesion

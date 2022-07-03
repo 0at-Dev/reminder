@@ -42,7 +42,13 @@ const init=async()=>{
                 
                 if(_session.hasSession===true){
                     // Directo a dashboard(route)
-                        console.log('Hay sesion')
+                    if(_session.isStoring===true){
+                        let {session:{store}}=_session
+                        router({route:'Home',prop:store})
+                     }
+                     if(_session.isStoring===false){
+                        router({route:'Home',prop:null})
+                     }
                 }
                 if(_session.hasSession===false){
                     // Login
@@ -58,20 +64,20 @@ const init=async()=>{
 
                     // Events
                     $loginForm.addEventListener('submit',async e=>{
-                        e.preventDefault()
-                        
+                        e.preventDefault()  
                         let _form=Object.fromEntries(new FormData(e.target))
                         let _validate=validate(_form)//If it's empty data
-
                             if(_validate.access===true){
 
                                 storage.createSession(_form.Key)
 
                                 if(_session.isStoring===true){
-                                   
+                                    let {session:{store}}=_session
+
+                                   router({route:'Home',prop:store})
                                 }
                                 if(_session.isStoring===false){
-                                    
+                                   router({route:'Home',prop:null})
                                 }
                             }
                             if(_validate.access===false){

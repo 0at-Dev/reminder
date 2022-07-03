@@ -10,56 +10,76 @@ import editor from '../methods/editor.js'
 import { navegator } from '../methods/navegator.js'
 
 
-export const home=async(key)=>{
-    let _session=storage.get(key)
-    let $Root= document.getElementById('Root')
-        $Root.innerHTML=''
+let $Root= document.getElementById('Root')
+let $Modal= document.getElementById('Modal')
 
+const listen=()=>{
+
+}
+const set=(data=[])=>{
+
+    if(data.length>0){
+        let $editor=editor.template()
+        let $dashboard=dashboard.template()
+
+        // Injection
+        $Root.appendChild($editor)
+        $Root.appendChild($dashboard)
+    }
+    if(data.length===0){
+        let $editor=editor.template()
         
-        if(_session===null){
-            let $editor=editor.template()
-            let $dashboard=dashboard.template()
-            let $proximity=dashboard.filter()
-                $Root.appendChild($editor)
-                $Root.appendChild($dashboard)
-                $Root.appendChild($proximity)
+        // Injection
+        $Root.appendChild($editor)
+    }
+
+}
+
+export const home=async(props)=>{
+        $Root.innerHTML=''
+        $Modal.innerHTML=''
+
+        props===null?set():set(props.tasks)
+        // if(_session===null){
+        //     let $editor=editor.template()
+        //     let $dashboard=dashboard.template()
+        //     let $proximity=dashboard.filter()
+        //         $Root.appendChild($editor)
+        //         $Root.appendChild($dashboard)
+        //         $Root.appendChild($proximity)
 
                 
-                // Events
-                editor.listen(key)
+        //         // Events
+        //         editor.listen(key)
 
-                await delay(2000)
-                alert.eraseTheMessage()
-                // alert.set(`Bienvenido ${key}, Comienza a crear tus notas`)
-        }
+        //         await delay(2000)
+        //         alert.eraseTheMessage()
+        //         // alert.set(`Bienvenido ${key}, Comienza a crear tus notas`)
+        // }
 
 
-        if(_session!==null){
+        // if(_session!==null){
 
-            let $editor=editor.template()
-            let $dashboard=dashboard.template()
-            let $proximity=dashboard.filter()
-            let $cards=dashboard.build({key,proximity:false})
+        //     let $editor=editor.template()
+        //     let $dashboard=dashboard.template()
+        //     let $proximity=dashboard.filter()
+        //     let $cards=dashboard.build({key,proximity:false})
                 
-                $cards.map(card=>$dashboard.appendChild(card))
+        //         $cards.map(card=>$dashboard.appendChild(card))
 
-            $Root.appendChild($editor)
-            $Root.appendChild($dashboard)
-            $Root.appendChild($proximity)
+        //     $Root.appendChild($editor)
+        //     $Root.appendChild($dashboard)
+        //     $Root.appendChild($proximity)
 
             
-            // Events
-            editor.listen(key)
-            dashboard.listen(key)
+        //     // Events
+        //     editor.listen(key)
+        //     dashboard.listen(key)
 
-            await delay(2000)
-            alert.eraseTheMessage()
-            // alert.set(`Bienvenido ${key}`)
-        }
-        // Events
-        // window.addEventListener("beforeunload",(e) =>{
-        //     e.preventDefault()
-        //     session.out()
-        // });
+        //     await delay(2000)
+        //     alert.eraseTheMessage()
+        //     // alert.set(`Bienvenido ${key}`)
+        // }
+      
         
 }
