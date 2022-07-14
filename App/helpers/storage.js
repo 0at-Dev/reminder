@@ -45,9 +45,9 @@ const remove=(setup)=>{//Remover info del LS
         }
 }
 const isSession=()=>{//validar sesion
-    let _session=sessionStorage.getItem('active')
-    let _key=_session
-    let _store=get(_key)
+    let _session=key()//sesion activa
+    let _key=_session//llave del almacen
+    let _store=get(_key)//almacen
 
     if(_session!==null){
         
@@ -61,14 +61,19 @@ const isSession=()=>{//validar sesion
     if(_session===null){
 
         if(_store===null){
-            return {isStoring:false,hasSession:false,session:{key:_key,store:null}}
+            return {isStoring:false,hasSession:false,session:{key:null,store:null}}
         }
         if(_store!==null){
-            return {isStoring:true,hasSession:false,session:{key:_key,store:_store}}
+            return {isStoring:true,hasSession:false,session:{key:null,store:null}}
         }
     }   
 } 
 const createSession=(key)=>{//crear sesion
     sessionStorage.setItem('active',key)
+} 
+const key=()=>{
+    let _key=sessionStorage.getItem('active')
+
+    return _key
 }
-export default {get,set,remove,isSession,createSession}
+export default {get,set,remove,isSession,createSession,key}

@@ -9,9 +9,8 @@ import date from "../../helpers/date.js"
 import { idGenerator } from "../../helpers/idGenerator.js"
 import storage from "../../helpers/storage.js"
 import { validate } from "../../helpers/validate.js"
+import alert from "./alert.js"
 import dashboard from "./dashboard.js"
-
-
 
 // State
 const input=(setup)=>{
@@ -81,42 +80,23 @@ const template=()=>{
     return $main
 }
 
-const listen=(key)=>{
-    let $save= document.getElementById('SaveTask')
-    let $dashboard= document.querySelector('.dashboard')
-        $save.addEventListener('click',e=>{
-            e.preventDefault()
+const create=(form)=>{
             
             let _today=date.today()
             let _day=_today.day<10? `0${_today.day}`:_today.day
             let _month=_today.month<10? `0${_today.month + 1}`:_today.month + 1
             let _year=_today.year
-
-
-            let _task= document.getElementById('Task')
-            let _description= document.getElementById('Description')
-            let _deadline=document.getElementById('Deadline')
-            let _importance=document.getElementById('Importance')
-                let _form={
-                    Id:idGenerator(),
-                    Task:_task.value,
-                    Description:_description.value,
-                    Created:`${_year}-${_month}-${_day}`,
-                    Deadline:_deadline.value,
-                    Importance:_importance.value,
-                    State:0
-                }
-                let _validate=validate(_form)
+            let _key= storage.key()
+            let _validate=validate(form)
 
                 if(_validate.data !==null){
-                    storage.set({key,data:_validate.data})
-                    let $cards=dashboard.build(key)
-                        $dashboard.innerHTML=''
-                        $cards.map(card=>$dashboard.appendChild(card))
-                
-                }
-        })
+                    form.Created=`${_year}-${_month}-${_day}`
+                    form.Id=idGenerator()
+                    form.State=0
 
+                    if(_key!==null)storage.set({key:_key,data:_validate.data}),window.location.reload()
+                    if(_key===null)alert.typeTheMessage(),alert.set('Error en la sesion')
+                }
 }
 
-export default {template,listen}
+export default {template,create}

@@ -11,7 +11,6 @@ export const _routes={
 
 export const router=(set)=>{
     let _route= _routes[set.route]
-        console.log(_route)
     if(set.route==='Home'){
         _route.success(set.prop)
     }

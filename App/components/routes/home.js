@@ -14,6 +14,22 @@ let $Root= document.getElementById('Root')
 let $Modal= document.getElementById('Modal')
 
 const listen=()=>{
+    $Root.addEventListener('submit',(e)=>{
+        if(e.target.id==='CreationForm'){
+            e.preventDefault()
+            let _form={
+                Task:e.target.elements.Task.value,
+                Description:e.target.elements.Description.value,
+                Deadline:e.target.elements.Deadline.value,
+                Importance:e.target.elements.Importance.value
+            }
+            
+            editor.create(_form)
+        }   
+    })
+    $Root.addEventListener('click',(e)=>{
+            
+    })
 
 }
 const set=(data=[])=>{
@@ -22,15 +38,25 @@ const set=(data=[])=>{
         let $editor=editor.template()
         let $dashboard=dashboard.template()
 
-        // Injection
+        // Data injection
+            data.map(task=>{
+                let $card=dashboard.card(task)
+                    $dashboard.appendChild($card)
+            })
+
+        //Main Injection
         $Root.appendChild($editor)
         $Root.appendChild($dashboard)
+
+        listen()
     }
     if(data.length===0){
         let $editor=editor.template()
         
         // Injection
         $Root.appendChild($editor)
+
+        listen()
     }
 
 }
@@ -39,6 +65,7 @@ export const home=async(props)=>{
         $Root.innerHTML=''
         $Modal.innerHTML=''
 
+            console.log(props)
         props===null?set():set(props.tasks)
         // if(_session===null){
         //     let $editor=editor.template()

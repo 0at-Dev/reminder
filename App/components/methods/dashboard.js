@@ -16,7 +16,6 @@ const template=()=>{
         return $main
 }
 
-
 // Id (random)
 // Task 
 // Description 
@@ -24,30 +23,13 @@ const template=()=>{
 // Deadline
 // State
 
-const filter=()=>{
-    let $filter=document.createElement('span')
-        $filter.classList.add('filter-container')
-        let $switcher= document.createElement('input')
-            $switcher.type='checkbox'
-            $switcher.id='Proximity'
-        let $label=document.createElement('label')
-            $label.htmlFor='Proximity'
-            $label.innerHTML=_closerEmoji
 
-            $filter.appendChild($switcher)
-            $filter.appendChild($label)
-
-    return $filter
-        
-}
 const card=(data)=>{
     let {Id,Task,Description,Created,Deadline}=data
 
     let $card= document.createElement('div')
         $card.classList.add('card')
         
-
-
         let $title=document.createElement('h3')
             $title.textContent=Task
         let $description=document.createElement('p')
@@ -73,60 +55,6 @@ const card=(data)=>{
     return $card
 }
 
-const build=(setup)=>{
-    let {key,proximity}=setup
-    let _response=storage.get(key)
-        let _sort=strain.proximity({further:proximity,tasks:_response.tasks})
-        if(_sort!==null){
-            return [..._sort.map(task=>card(task))]
-        }
-        return []
-}
-const listen=(key)=>{
-
-    // Delete
-
-    let $cards= document.querySelectorAll('.dashboard .card .delete-task')
-    let $dashboard=$cards[0].parentElement.parentElement
-    let $proximity=document.getElementById('Proximity')
-
-        $cards.forEach($card=>{
-
-            $card.addEventListener('click',e=>{
-                e.preventDefault()
-
-                let _ref=e.currentTarget.id
-                    storage.remove({key,ref:_ref})
-                    
-                    let $cards=build({key,proximity:false})
-                        $dashboard.innerHTML=''
-                        $cards.map(card=>$dashboard.appendChild(card))
-              
-
-            })
-        })
-        $proximity.addEventListener('change',e=>{
-            let $label=e.currentTarget.parentElement.querySelector('label')
-            let _further=e.target.checked
-            // let _tasks= storage.get(key).tasks
-            if(_further){
-                $label.innerHTML=_furtherEmoji
-                // let _sort=strain.proximity({further:_further,tasks:_tasks})
-                let $cards=build({key,proximity:true})
-                    $dashboard.innerHTML=''
-                    $cards.map(card=>$dashboard.appendChild(card))
-
-            }
-            if(!_further){
-                $label.innerHTML=_closerEmoji
-                // let _sort=strain.proximity({further:_further,tasks:_tasks})
-                let $cards=build({key,proximity:false})
-                    $dashboard.innerHTML=''
-                    $cards.map(card=>$dashboard.appendChild(card))
 
 
-            }
-        })
-
-}
-export default {template,build,listen,card,filter}
+export default {template,card}
