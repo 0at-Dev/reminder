@@ -96,8 +96,7 @@ const create=(form)=>{
                     form.Id=idGenerator()
                     form.State=0
 
-                    if(_key!==null)storage.set({key:_key,data:_validate.data})
-                    // ,window.location.reload()
+                    if(_key!==null)storage.set({key:_key,data:_validate.data}),window.location.reload()
                     if(_key===null)alert.typeTheMessage(),alert.set('Error en la sesion')
                 }
 }

@@ -87,9 +87,8 @@ const check=()=>{
                         
                         Deadline=transform.toMMDDYY(Deadline)
 
-                    return new Date(Deadline)>=_MMDDYY
+                    return new Date(Deadline)>=new Date(_MMDDYY)
                 })
-                    
                 if(_storage.tasks.length !== _validTasks.length){
                     alert.typeTheMessage()
                     alert.set('Algunas de tus tareas expiraron, asi que fueron eliminadas')
@@ -99,13 +98,14 @@ const check=()=>{
 
                     if(_validTasks.length>0){
                         localStorage.setItem(_key,JSON.stringify({tasks:_validTasks}))
+                        
                         return {tasks:_validTasks}
                     }
                     if(_validTasks.length===0){
                         window.location.reload()
                     }
                 }
-                if(_storage.tasks.length === _validTasks){
+                if(_storage.tasks.length === _validTasks.length){
                     return _storage
                 }
             }

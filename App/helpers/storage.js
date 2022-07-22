@@ -35,13 +35,14 @@ const set=(setup)=>{// Guardar info en el LS
 const remove=(setup)=>{//Remover info del LS
     let {key,ref}=setup
 
-    let _validate= localStorage.getItem(key)
-    let _response= _validate===null?null:JSON.parse(_validate)
+   let _storage=get(key)
 
-        if( _response !==null){
-            if(_response.tasks){
-                let _data=_response.tasks.filter(task=> task.Id !== ref)
-                    localStorage.setItem(key,JSON.stringify({tasks:_data}))
+        if( _storage !==null){
+            if(_storage.tasks){
+                let _data=_storage.tasks.filter(task=> task.Id !== ref)
+                    localStorage.removeItem(key)
+                    if(_data.length>0)localStorage.setItem(key,JSON.stringify({tasks:_data}))
+                    
             }
         }
 }

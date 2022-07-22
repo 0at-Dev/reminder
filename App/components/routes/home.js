@@ -40,11 +40,11 @@ const listen=()=>{
 }
 const set=()=>{
     // Alert Container
+    
     const $alert=alert.template()
         $Modal.appendChild($alert)
     //Storage check 
     let _storage=dashboard.check()
-    
     if(_storage!==null){
         let{tasks:data}=_storage
 
@@ -89,7 +89,5 @@ export const home=async(props)=>{
         $Root.innerHTML=''
         $Modal.innerHTML=''
 
-            console.log(props)
-            set()
-        // props===null?set():set(props.tasks)      
+            set()     
 }
