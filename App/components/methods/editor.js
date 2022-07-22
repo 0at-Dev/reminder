@@ -89,12 +89,15 @@ const create=(form)=>{
             let _key= storage.key()
             let _validate=validate(form)
 
+                    console.log(_validate)
+                    console.log(_key)
                 if(_validate.data !==null){
                     form.Created=`${_year}-${_month}-${_day}`
                     form.Id=idGenerator()
                     form.State=0
 
-                    if(_key!==null)storage.set({key:_key,data:_validate.data}),window.location.reload()
+                    if(_key!==null)storage.set({key:_key,data:_validate.data})
+                    // ,window.location.reload()
                     if(_key===null)alert.typeTheMessage(),alert.set('Error en la sesion')
                 }
 }

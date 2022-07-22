@@ -1,8 +1,7 @@
-import api from '../../helpers/api.js'
 import { delay } from '../../helpers/delay.js'
-import get  from '../../helpers/query.js'
 import session from '../../helpers/session.js'
 import storage from '../../helpers/storage.js'
+import transform from '../../helpers/transform.js'
 import alert from '../methods/alert.js'
 import dashboard from '../methods/dashboard.js'
 
@@ -10,12 +9,15 @@ import editor from '../methods/editor.js'
 import { navegator } from '../methods/navegator.js'
 
 
+
 let $Root= document.getElementById('Root')
 let $Modal= document.getElementById('Modal')
-
+let _key=storage.key()
 const listen=()=>{
+    
     $Root.addEventListener('submit',(e)=>{
-        if(e.target.id==='CreationForm'){
+        let {target}=e
+        if(target.id==='CreationForm'){
             e.preventDefault()
             let _form={
                 Task:e.target.elements.Task.value,
@@ -23,42 +25,64 @@ const listen=()=>{
                 Deadline:e.target.elements.Deadline.value,
                 Importance:e.target.elements.Importance.value
             }
-            
+
             editor.create(_form)
         }   
     })
     $Root.addEventListener('click',(e)=>{
-            
-    })
+        let {target}=e
+        if(target.tagName==='BUTTON' && target.classList.contains('delete-task')){
+            let _ref= target.id    
 
+            dashboard.remove(_ref)
+        }   
+    })  
 }
-const set=(data=[])=>{
+const set=()=>{
+    // Alert Container
+    const $alert=alert.template()
+        $Modal.appendChild($alert)
+    //Storage check 
+    let _storage=dashboard.check()
+    
+    if(_storage!==null){
+        let{tasks:data}=_storage
 
-    if(data.length>0){
-        let $editor=editor.template()
-        let $dashboard=dashboard.template()
+        if(data.length>0){
 
-        // Data injection
-            data.map(task=>{
-                let $card=dashboard.card(task)
-                    $dashboard.appendChild($card)
-            })
+            let $editor=editor.template()
+            let $dashboard=dashboard.template()
 
-        //Main Injection
-        $Root.appendChild($editor)
-        $Root.appendChild($dashboard)
+            // Data injection
+                data.map(task=>{
+                    let $card=dashboard.card(task)
+                        $dashboard.appendChild($card)
+                })
 
-        listen()
+            //Main Injection
+            $Root.appendChild($editor)
+            $Root.appendChild($dashboard)
+
+            listen()
+        }
+        if(data.length===0){
+            let $editor=editor.template()
+            
+            //Main Injection
+            $Root.appendChild($editor)
+
+            listen()
+        }
     }
-    if(data.length===0){
-        let $editor=editor.template()
-        
-        // Injection
-        $Root.appendChild($editor)
+    if(_storage===null){
+            let $editor=editor.template()
+            
+            //Main Injection
+            $Root.appendChild($editor)
 
-        listen()
+            listen()
     }
-
+    
 }
 
 export const home=async(props)=>{
@@ -66,47 +90,6 @@ export const home=async(props)=>{
         $Modal.innerHTML=''
 
             console.log(props)
-        props===null?set():set(props.tasks)
-        // if(_session===null){
-        //     let $editor=editor.template()
-        //     let $dashboard=dashboard.template()
-        //     let $proximity=dashboard.filter()
-        //         $Root.appendChild($editor)
-        //         $Root.appendChild($dashboard)
-        //         $Root.appendChild($proximity)
-
-                
-        //         // Events
-        //         editor.listen(key)
-
-        //         await delay(2000)
-        //         alert.eraseTheMessage()
-        //         // alert.set(`Bienvenido ${key}, Comienza a crear tus notas`)
-        // }
-
-
-        // if(_session!==null){
-
-        //     let $editor=editor.template()
-        //     let $dashboard=dashboard.template()
-        //     let $proximity=dashboard.filter()
-        //     let $cards=dashboard.build({key,proximity:false})
-                
-        //         $cards.map(card=>$dashboard.appendChild(card))
-
-        //     $Root.appendChild($editor)
-        //     $Root.appendChild($dashboard)
-        //     $Root.appendChild($proximity)
-
-            
-        //     // Events
-        //     editor.listen(key)
-        //     dashboard.listen(key)
-
-        //     await delay(2000)
-        //     alert.eraseTheMessage()
-        //     // alert.set(`Bienvenido ${key}`)
-        // }
-      
-        
+            set()
+        // props===null?set():set(props.tasks)      
 }

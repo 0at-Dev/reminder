@@ -41,18 +41,17 @@ const init=async()=>{
             let _session=storage.isSession()
                 
                 if(_session.hasSession===true){
-                    // Directo a dashboard(route)
-                        console.log(_session)
+                    // Open the Dashboard
                     if(_session.isStoring===true){
-                        let {session:{store}}=_session
-                        router({route:'Home',prop:store})
-                     }
-                     if(_session.isStoring===false){
-                        router({route:'Home',prop:null})
-                     }
+                    let {session:{store}}=_session
+                    router({route:'Home',prop:store})
+                    }
+                    if(_session.isStoring===false){
+                    router({route:'Home',prop:null})
+                    }
                 }
                 if(_session.hasSession===false){
-                    // Login
+                    // Go to Login form
                     const $root= document.getElementById('Root')
                     const $modal=document.getElementById('Modal')
 

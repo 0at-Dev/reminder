@@ -10,11 +10,12 @@ const get=(key)=>{//Obtener info del LS
 const set=(setup)=>{// Guardar info en el LS
     let {key,data}= setup    
     
-
     let _validate= localStorage.getItem(key)
+        console.log(_validate)
+        console.log(key)
+        console.log(data)
     let _response= _validate===null?null:JSON.parse(_validate)
     
-
         if( _response !==null){
             if(_response.tasks){
                 let _update=_response.tasks
@@ -44,10 +45,18 @@ const remove=(setup)=>{//Remover info del LS
             }
         }
 }
-const isSession=()=>{//validar sesion
-    let _session=key()//sesion activa
-    let _key=_session//llave del almacen
-    let _store=get(_key)//almacen
+const createSession=(key)=>{//crear sesion
+    sessionStorage.setItem('active',key)
+} 
+const key=()=>{
+    let _key=sessionStorage.getItem('active')
+
+    return _key
+}
+const isSession=()=>{//validate session
+    let _session=key()//active session
+    let _key=_session//Store's key
+    let _store=get(_key)//Store
 
     if(_session!==null){
         
@@ -58,9 +67,9 @@ const isSession=()=>{//validar sesion
                 return {isStoring:true,hasSession:true,session:{key:_key,store:_store}}
             }
     }
-    if(_session===null){
+    if(_session===null){//
 
-        if(_store===null){
+        if(_store===null){//
             return {isStoring:false,hasSession:false,session:{key:null,store:null}}
         }
         if(_store!==null){
@@ -68,12 +77,4 @@ const isSession=()=>{//validar sesion
         }
     }   
 } 
-const createSession=(key)=>{//crear sesion
-    sessionStorage.setItem('active',key)
-} 
-const key=()=>{
-    let _key=sessionStorage.getItem('active')
-
-    return _key
-}
 export default {get,set,remove,isSession,createSession,key}
