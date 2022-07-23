@@ -39,7 +39,6 @@
     .alert h1::before{
         content:'';
         position: absolute;
-        left:0;
         top: 0;
         bottom: 0;
         right: 0;
@@ -49,24 +48,27 @@
         content: '👀';
         font-size: 1.5em;
         position: absolute;
-        left:0;
         top:-50%;
         bottom: 0;
         right: 0;
     }
 
     .addMessage::before{
+        left: 0;
         animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
     }
     .addMessage::after{
+        left: 0;
         animation:typing var(--typingSpeed) steps(var(--alertCharacters)) forwards ;
     }
 
     .removeMessage::before{
-        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) reverse;
+        left: 100%;
+        animation:erase var(--typingSpeed) steps(var(--alertCharacters)) forwards;
     }
     .removeMessage::after{
-        animation:typing var(--typingSpeed) steps(var(--alertCharacters)) reverse;
+        left: 100%;
+        animation:erase var(--typingSpeed) steps(var(--alertCharacters)) forwards;
     }
 
     @keyframes typing {
@@ -74,9 +76,12 @@
             left: 100%;
         }
     }
-
- 
-
+    @keyframes erase {
+        to{
+            left: 0%;
+        }
+    }
+    
 @media only screen and (min-width:901px){
    
 }

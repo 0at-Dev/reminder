@@ -40,9 +40,10 @@ const listen=()=>{
 }
 const set=()=>{
     // Alert Container
-    
     const $alert=alert.template()
         $Modal.appendChild($alert)
+
+    
     //Storage check 
     let _storage=dashboard.check()
     if(_storage!==null){
